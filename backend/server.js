@@ -4,10 +4,8 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// ✅ Load dotenv FIRST, before any other imports that use env vars
 dotenv.config();
 
-// ✅ Now import routes and config (after dotenv is loaded)
 import jobRoutes from "./src/routes/jobRoutes.js";
 import resumeRoutes from "./src/routes/resumeRoutes.js";
 import connectDB from "./src/config/db.js";
@@ -23,8 +21,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Serve uploaded files statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // DB
@@ -36,6 +32,11 @@ app.use("/api/resumes", resumeRoutes);
 app.use('/api/subscribers', subscriberRoutes);
 app.use('/api/auth', authRoutes);
 
-// Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// ✅ For Vercel: Export the app instead of listening
+export default app;
+
+// ✅ For local development: Only listen if not in production
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
