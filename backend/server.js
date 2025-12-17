@@ -16,6 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const PORT = process.env.PORT || 5000; // ✅ Define PORT
 
 // Middlewares
 app.use(cors());
@@ -32,11 +33,12 @@ app.use("/api/resumes", resumeRoutes);
 app.use('/api/subscribers', subscriberRoutes);
 app.use('/api/auth', authRoutes);
 
-// ✅ For Vercel: Export the app instead of listening
+// ✅ For Vercel: Export the app
 export default app;
 
-// ✅ For local development: Only listen if not in production
+// Start server (only in local development)
 if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
 }
