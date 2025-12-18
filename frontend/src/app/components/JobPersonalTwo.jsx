@@ -4,7 +4,7 @@ import { CheckCircle, FileText, Users, Code } from "lucide-react";
 
 const JobPersonalTwo = ({ job }) => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 space-y-10 max-w-4xl mx-16">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 space-y-10 max-w-4xl mx-16 mb-12">
       {/* Short Description */}
       {job.shortDescription && (
         <div>

@@ -1,14 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-// import SearchFilterSidebar from '@/components/SearchFilterSidebar';
-// import JobCard from '@/components/JobCard';
 import { Loader2 } from 'lucide-react';
 import JobCard from '../components/JobCard';
 import SearchFilterSidebar from '../components/SearchFilterSidebar';
 
-const AllJobs = () => {
+// Loading fallback component
+function JobsLoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <Loader2 className="w-12 h-12 text-teal-600 animate-spin mx-auto mb-4" />
+        <p className="text-gray-600">Loading jobs...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main content component that uses useSearchParams
+function AllJobsContent() {
   const searchParams = useSearchParams();
   
   // Get URL parameters
@@ -39,7 +50,7 @@ const AllJobs = () => {
     const fetchJobs = async () => {
       try {
         setLoading(true);
-        3
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch jobs');
@@ -265,6 +276,13 @@ const AllJobs = () => {
       </div>
     </div>
   );
-};
+}
 
-export default AllJobs;
+// Main page component with Suspense wrapper
+export default function AllJobs() {
+  return (
+    <Suspense fallback={<JobsLoadingFallback />}>
+      <AllJobsContent />
+    </Suspense>
+  );
+}

@@ -15,7 +15,7 @@ const JobPersonalOne = ({ job }) => {
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-teal-900 via-teal-800 to-teal-700">
       {/* Breadcrumb */}
-      <div className="container mx-auto px-6 py-4">
+      {/* <div className="container mx-auto px-6 py-4">
         <nav className="text-white text-sm">
           <span className="opacity-75">Home</span>
           <span className="mx-2 opacity-75">/</span>
@@ -23,10 +23,10 @@ const JobPersonalOne = ({ job }) => {
           <span className="mx-2 opacity-75">/</span>
           <span>{job.title}</span>
         </nav>
-      </div>
+      </div> */}
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 pb-12">
+      <div className="container mx-auto px-6 pb-12 pt-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Left Content */}
           <div className="text-white space-y-8">
